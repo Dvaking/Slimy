@@ -1,8 +1,8 @@
 import { Client, IntentsBitField, Partials } from "discord.js";
-import { help } from "./commands/help.js"
+import { CommandFinders } from "./commands/commandFincder";
 import "dotenv/config";
 
-const prefix = "slimy "
+const prefix = "slimy ";
 
 const bot = new Client({
   intents: [
@@ -13,11 +13,8 @@ const bot = new Client({
     IntentsBitField.Flags.GuildModeration,
     IntentsBitField.Flags.DirectMessages,
   ],
-  partials: [
-    Partials.Channel
-  ],
+  partials: [Partials.Channel],
 });
-
 
 bot.on("ready", () => {
   if (!bot) return;
@@ -26,15 +23,22 @@ bot.on("ready", () => {
 
 bot.on("messageCreate", (msg) => {
   if (msg.author.bot) return;
+
   if (msg.content.toLowerCase().includes("salut slimy")) {
     msg.reply(`Salut ${msg.author.globalName}`);
   }
-  if (msg.content.toLowerCase().startsWith(prefix) && msg.content.includes("help"))
-    msg.reply(help);
-  if (msg.type === 7)
+  if (msg.type === 7) {
     msg.reply(
       `Bienvenue ${msg.author.globalName} ! J'espère que tu t'amuseras bien parmi nous :)`
     );
+  }
+  if (msg.content.toLowerCase().startsWith(prefix)) {
+    console.log("je suis là");
+    const reply = CommandFinders(msg.content.split(" "));
+    if (reply) {
+      msg.reply(reply);
+    }
+  }
 });
 
 bot.login(process.env.TOKEN);

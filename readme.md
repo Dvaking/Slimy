@@ -22,3 +22,4 @@ npm run dev
 npm run build
 npm start
 ```
+or use run_slimy file x)
