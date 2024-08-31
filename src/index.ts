@@ -33,7 +33,6 @@ bot.on("messageCreate", (msg) => {
     );
   }
   if (msg.content.toLowerCase().startsWith(prefix)) {
-    console.log("je suis là");
     const reply = CommandFinders(msg.content.split(" "));
     if (reply) {
       msg.reply(reply);
