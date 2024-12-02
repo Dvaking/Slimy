@@ -33,10 +33,7 @@ bot.on("messageCreate", (msg) => {
     );
   }
   if (msg.content.toLowerCase().startsWith(prefix)) {
-    const reply = CommandFinders(msg.content.split(" "));
-    if (reply) {
-      msg.reply(reply);
-    }
+      msg.reply(CommandFinders(msg.content.split(" ")));
   }
 });
 

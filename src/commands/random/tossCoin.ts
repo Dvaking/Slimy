@@ -7,4 +7,5 @@ export function TossCoin()
     return "Face !";
   if (result[0] === 2)
     return "Pile !";
+  return "Error";
 }

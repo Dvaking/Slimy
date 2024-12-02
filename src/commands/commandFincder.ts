@@ -11,4 +11,5 @@ export function CommandFinders(str: string[])
         return Dice(str);
     if (str[1].toLowerCase().includes("tosscoin"))
         return TossCoin();
+    return "Command not found";
 }
