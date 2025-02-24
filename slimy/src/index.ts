@@ -37,4 +37,5 @@ bot.on("messageCreate", (msg) => {
   }
 });
 
-bot.login(process.env.TOKEN);
+
+bot.login(process.env.DEVTOKEN);
