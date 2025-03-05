@@ -42,6 +42,7 @@ services:
     restart: always
     environment:
       DEVTOKEN: ${DEVTOKEN}
+      BACKEND_URL: ${BACKEND_URL}
     build:
       context: ./bot
       dockerfile: Dockerfile
@@ -51,7 +52,7 @@ services:
     volumes:
       - ./bot/src:/bot/src
       - /var/run/docker.sock:/var/run/docker.sock
-    command: ["npm", "run", "start"]
+    command: ["npm", "run", "dev"]
 
 volumes:
   slimy_postgre_data:

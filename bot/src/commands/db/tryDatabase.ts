@@ -1,6 +1,8 @@
+import 'dotenv/config';
+
 async function getOnDatabase(): Promise<string> {
   try {
-    const response = await fetch("http://localhost:8523/", {
+    const response = await fetch(`${process.env.BACKEND_URL}/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -16,8 +18,8 @@ async function getOnDatabase(): Promise<string> {
   }
 }
 
-export async function saveOnFiles(str: string) {
+export async function tryDatabase() {
   const data = await getOnDatabase();
   console.log("Data to save:", data);
-  return data || "No data to save";
+  return data;
 }
