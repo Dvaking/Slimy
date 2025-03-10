@@ -1,31 +1,17 @@
 {
-  "name": "slimy-backend",
-  "version": "1.0.0",
-  "main": "index.js",
+  "name": "app",
+  "version": "1.0.50",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
-    "build": "tsc",
-    "start": "node ."
-  },
-  "keywords": [],
-  "author": "Dvaking",
-  "license": "ISC",
-  "description": "Thats backend of the slimy project",
-  "devDependencies": {
-    "@types/cors": "^2.8.17",
-    "@types/express": "^5.0.0",
-    "@types/node": "^22.13.4",
-    "@types/pg": "^8.11.11",
-    "prisma": "^6.4.1",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.7.3"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "bun run --watch src/index.ts"
   },
   "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "pg": "^8.13.3",
-    "tsx": "^4.19.3",
-    "watch": "^0.13.0"
-  }
+    "drizzle-orm": "^0.40.0",
+    "drizzle-typebox": "^0.3.0",
+    "elysia": "latest"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "module": "src/index.js"
 }

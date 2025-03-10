@@ -21,7 +21,7 @@ bot.on("ready", () => {
   console.log(`\n${bot.user?.username} is ready`);
 });
 
-bot.on("messageCreate", (msg) => {
+bot.on("messageCreate", (msg: any) => {
   if (msg.author.bot) return;
 
   if (msg.content.toLowerCase().includes("salut slimy")) {
@@ -33,7 +33,9 @@ bot.on("messageCreate", (msg) => {
     );
   }
   if (msg.content.toLowerCase().startsWith(prefix)) {
-    msg.reply(CommandFinders(msg.content.split(" ")));
+    CommandFinders(msg.content.split(" ")).then((response) => {
+      msg.reply(response);
+    });
   }
 });
 

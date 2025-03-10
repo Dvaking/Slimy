@@ -2,7 +2,7 @@ import "dotenv/config";
 
 async function getOnDatabase(): Promise<string> {
   try {
-    const response = await fetch(`http://backend:8801/`, {
+    const response = await fetch(`http://backend:8801/discord/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -18,7 +18,7 @@ async function getOnDatabase(): Promise<string> {
   }
 }
 
-export async function tryDatabase(): Promise<string> {
+export async function tryDiscordDatabase(): Promise<string> {
   const data = await getOnDatabase();
   return data;
 }

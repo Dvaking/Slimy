@@ -1,23 +1,24 @@
 import { Dice } from "./random/dice";
 import { TossCoin } from "./random/tossCoin";
 import { help } from "./help";
-import { tryDatabase } from "./db/tryDatabase";
+import { tryDatabase, tryDiscordDatabase } from "./db";
 
-function DatabaseInteraction(str: string[])
+async function DatabaseInteraction(str: string[])
 {
-  let value = 'Error: database';
-  if (str[1].toLowerCase().includes("db")) {
-    const message = tryDatabase();
-    message.then((rep) => { value = rep; console.log('toto', value); });
-    console.log(value);
+  console.log(str);
+  if (str[2].toLowerCase().includes("home")) {
+    return await tryDatabase();
   }
-  return value;
+  if (str[2].toLowerCase().includes("discord")) {
+    return tryDiscordDatabase();
+  }
+  return 'Error: database';
 }
 
-export function CommandFinders(str: string[]) {
+export async function CommandFinders(str: string[]) {
   if (str[1].toLowerCase().includes("help")) return help;
   if (str[1].toLowerCase().includes("dice")) return Dice(str);
   if (str[1].toLowerCase().includes("tosscoin")) return TossCoin();
-  if (str[1].toLowerCase().includes("db")) return DatabaseInteraction(str);
+  if (str[1].toLowerCase().includes("db")) return await DatabaseInteraction(str);
   return "Command not found";
 }

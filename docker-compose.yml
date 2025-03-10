@@ -36,6 +36,9 @@ services:
       timeout: 10s
       retries: 5
       start_period: 80s
+    volumes:
+      - ./backend/src:/backend/src
+      - /var/run/docker.sock:/var/run/docker.sock
 
   bot:
     container_name: slimy-bot
