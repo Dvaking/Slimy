@@ -7,7 +7,6 @@ Dvaking Personnal Discord Bot
 sudo npm -g typescript nodemon
 npm i discord.js dotenv
 npm i -D tsx @types/node
-npm init
 ```
 
 # Starting command

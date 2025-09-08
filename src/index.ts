@@ -1,4 +1,9 @@
-import { Client, IntentsBitField, Partials } from "discord.js";
+import {
+  Client,
+  GatewayIntentBits,
+  IntentsBitField,
+  Partials,
+} from "discord.js";
 import { CommandFinders } from "./commands/commandFincder";
 import "dotenv/config";
 
@@ -12,6 +17,9 @@ const bot = new Client({
     IntentsBitField.Flags.MessageContent,
     IntentsBitField.Flags.GuildModeration,
     IntentsBitField.Flags.DirectMessages,
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.GuildMessageReactions,
   ],
   partials: [Partials.Channel],
 });
@@ -33,8 +41,8 @@ bot.on("messageCreate", (msg) => {
     );
   }
   if (msg.content.toLowerCase().startsWith(prefix)) {
-      msg.reply(CommandFinders(msg.content.split(" ")));
+    msg.reply(CommandFinders(msg.content.split(" ")));
   }
 });
 
-bot.login(process.env.TOKEN);
+bot.login(process.env.DEVTOKEN);
