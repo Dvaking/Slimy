@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "Dvaking discord bot",
   "main": "app/index.js",
-  "target": "ES2022",
-  "module": "CommonJS",
+  "type": "module",
   "scripts": {
     "start": "node app/index.js",
     "dev": "nodemon app/index.js"
@@ -14,10 +13,10 @@
     "url": "git+https://github.com/Dvaking/Slimy.git"
   },
   "keywords": [
-    "'bot'",
-    "'discord'",
-    "'jdr'",
-    "'perso'"
+    "bot",
+    "discord",
+    "jdr",
+    "perso"
   ],
   "author": "Dvaking",
   "license": "ISC",
