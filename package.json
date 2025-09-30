@@ -1,23 +1,35 @@
 {
-  "name": "slimy",
+  "name": "slimybot",
   "version": "1.0.0",
-  "description": "",
-  "main": "dist/index.js",
+  "description": "Dvaking discord bot",
+  "main": "app/index.js",
+  "target": "ES2022",
+  "module": "CommonJS",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
-    "build": "tsc",
-    "start": "node ."
+    "start": "node app/index.js",
+    "dev": "nodemon app/index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dvaking/Slimy.git"
+  },
+  "keywords": [
+    "'bot'",
+    "'discord'",
+    "'jdr'",
+    "'perso'"
+  ],
   "author": "Dvaking",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dvaking/Slimy/issues"
+  },
+  "homepage": "https://github.com/Dvaking/Slimy#readme",
   "dependencies": {
     "discord.js": "^14.22.1",
-    "dotenv": "^16.6.1",
-    "nodemon": "^3.1.4"
+    "dotenv": "^17.2.3"
   },
   "devDependencies": {
-    "@types/node": "^22.18.0",
-    "tsx": "^4.20.5",
-    "typescript": "^5.7.2"
+    "nodemon": "^3.1.10"
   }
 }
