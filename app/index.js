@@ -1,9 +1,16 @@
-import { Client, GatewayIntentBits, Events, Collection } from "discord.js";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
+import {
+  Client,
+  GatewayIntentBits,
+  Events,
+  Collection,
+  MessageFlags,
+} from "discord.js";
+import { DeployCommand } from "./deployCommands.js";
+import { loadCommands, getDirname } from "./utils/commandLoader.js";
 
 import "dotenv/config";
+
+DeployCommand();
 
 const bot = new Client({ intents: [GatewayIntentBits.Guilds] });
 
@@ -13,37 +20,14 @@ bot.once(Events.ClientReady, (readyClient) => {
 
 bot.commands = new Collection();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = getDirname(import.meta.url);
 
-const foldersPath = path.join(__dirname, "commands");
-const commandFolders = fs.readdirSync(foldersPath);
+// Charge toutes les commandes en utilisant l'utilitaire centralisé
+const loadedCommands = await loadCommands(__dirname);
 
-for (const folder of commandFolders) {
-  // Grab all the command files from the commands directory
-  const commandsPath = path.join(foldersPath, folder);
-  const commandFiles = fs
-    .readdirSync(commandsPath)
-    .filter((file) => file.endsWith(".js"));
-
-  // Grab the SlashCommandBuilder#toJSON() output of each command's data for deployment
-  for (const file of commandFiles) {
-    const filePath = path.join(commandsPath, file);
-    console.log(`Loading command at ${filePath}`);
-    // Import dynamique (ESM only)
-    const { default: command } = await import(`${filePath}`);
-    if (!command) {
-      console.log(`No command found at ${filePath}`);
-      continue;
-    }
-    if ("data" in command && "execute" in command) {
-      bot.commands.set(command.data.name, command);
-    } else {
-      console.log(
-        `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`
-      );
-    }
-  }
+// Ajoute chaque commande à la collection du bot
+for (const command of loadedCommands) {
+  bot.commands.set(command.data.name, command);
 }
 
 bot.on(Events.InteractionCreate, async (interaction) => {
@@ -53,7 +37,6 @@ bot.on(Events.InteractionCreate, async (interaction) => {
     console.error(`No command matching ${interaction.commandName} was found.`);
     return;
   }
-
   try {
     await command.execute(interaction);
   } catch (error) {

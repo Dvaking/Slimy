@@ -4,6 +4,9 @@
   "description": "Dvaking discord bot",
   "main": "app/index.js",
   "type": "module",
+  "imports": {
+    "#components": "./app/components/index.js"
+  },
   "scripts": {
     "start": "node app/index.js",
     "dev": "nodemon app/index.js"
@@ -26,7 +29,8 @@
   "homepage": "https://github.com/Dvaking/Slimy#readme",
   "dependencies": {
     "discord.js": "^14.22.1",
-    "dotenv": "^17.2.3"
+    "dotenv": "^17.2.3",
+    "module-alias": "^2.2.3"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
