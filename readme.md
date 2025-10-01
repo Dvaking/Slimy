@@ -4,9 +4,8 @@ Dvaking Personnal Discord Bot
 
 # Dependance ot install
 ```
-sudo npm -g typescript nodemon
+sudo npm -g nodemon
 npm i discord.js dotenv
-npm i -D tsx @types/node
 ```
 
 # Starting command
