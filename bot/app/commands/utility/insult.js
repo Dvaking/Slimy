@@ -18,8 +18,6 @@ const insult = () => {
     const insult = await GetFromFiles("insult.txt");
     const rdm = DiceGenerator(insult.length, 1);
 
-    console.log(insult.length);
-
     const reply = `${insult[rdm[0]]} ${victim}`;
 
     await interaction.reply(reply);
