@@ -4,7 +4,7 @@ import { fileURLToPath } from "url";
 
 const __folderpath = getDirname(import.meta.url);
 
-export async function GetFromFiles(nameOfTheFile) {
+export async function getFromFiles(nameOfTheFile) {
   const commands = [];
   const filePath = path.join(__folderpath, nameOfTheFile);
 

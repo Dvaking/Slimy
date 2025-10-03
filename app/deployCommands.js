@@ -4,7 +4,7 @@ import { loadCommands, getDirname } from "./utils/commandLoader.js";
 
 // Grab all the command folders from the commands directory you created earlier
 
-export async function DeployCommand() {
+export async function deployCommand() {
   const __dirname = getDirname(import.meta.url);
 
   // Charge toutes les commandes en utilisant l'utilitaire centralisé

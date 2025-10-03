@@ -5,7 +5,8 @@
   "main": "app/index.js",
   "type": "module",
   "imports": {
-    "#components": "./app/components/index.js"
+    "#components": "./app/components/index.js",
+    "#database": "./app/database/index.js"
   },
   "scripts": {
     "start": "node app/index.js",
@@ -31,7 +32,8 @@
     "discord.js": "^14.22.1",
     "dotenv": "^17.2.3",
     "module-alias": "^2.2.3",
-    "pg": "^8.16.3"
+    "pg": "^8.16.3",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"

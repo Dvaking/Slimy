@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from "discord.js";
-import { DiceGenerator } from "#components";
+import { diceGenerator } from "#components";
 
 const dice = () => {
   const data = new SlashCommandBuilder()
@@ -32,7 +32,7 @@ const dice = () => {
       return interaction.reply("I can't roll this type of dices !! :(");
     }
 
-    const result = DiceGenerator(nbrOfFaces, nbrOfDice);
+    const result = diceGenerator(nbrOfFaces, nbrOfDice);
 
     let reply;
     if (result.length === 1) {
@@ -51,7 +51,7 @@ const dice = () => {
 };
 
 function trolling(result) {
-  const rdm = DiceGenerator(2, 1)[0]; // juste la valeur au lieu du tableau
+  const rdm = diceGenerator(2, 1)[0]; // juste la valeur au lieu du tableau
   switch (result[0]) {
     case 1:
       return rdm === 1

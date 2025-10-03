@@ -1,35 +1,29 @@
 services:
   database:
     image: postgres:latest
-    container_name: slimy-postgres
-    restart: always
+    container_name: slimy-postgres-db
+    restart: unless-stopped
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - slimy_data:/var/lib/postgresql/data
     ports:
       - "5433:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql/data
 
-  # migrate:
-  #   image: flyway/flyway:latest
-  #   command: -url=jdbc:postgresql://database:5432/${POSTGRES_DB} -user=${POSTGRES_USER} -password=${POSTGRES_PASSWORD} -locations=filesystem:/flyway/sql migrate
-  #   volumes:
-  #     - ./database:/flyway/sql
-  #   depends_on:
-  #     - database
-
-  slimy:
-    build: ./bot
+  bot:
+    build: .
     container_name: slimy-bot
-    restart: always
+    restart: unless-stopped
     env_file:
       - .env
+    environment:
+      DATABASE_URL: ${POSTGRES_URL}
     depends_on:
       - database
     volumes:
-      - ./bot:/app
+      - ./:/app
 
 volumes:
-  pgdata:
+  slimy_data:

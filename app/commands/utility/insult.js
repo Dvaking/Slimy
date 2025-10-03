@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from "discord.js";
-import { DiceGenerator, GetFromFiles } from "#components";
+import { diceGenerator, getFromFiles } from "#components";
 
 const insult = () => {
   const data = new SlashCommandBuilder()
@@ -15,8 +15,8 @@ const insult = () => {
   async function execute(interaction) {
     const victim = interaction.options.getUser("user");
 
-    const insult = await GetFromFiles("insult.txt");
-    const rdm = DiceGenerator(insult.length, 1);
+    const insult = await getFromFiles("insult.txt");
+    const rdm = diceGenerator(insult.length, 1);
 
     const reply = `${insult[rdm[0]]} ${victim}`;
 

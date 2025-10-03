@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from "discord.js";
-import { DiceGenerator } from "#components";
+import { diceGenerator } from "#components";
 
 const coin = () => {
   const data = new SlashCommandBuilder()
@@ -7,7 +7,7 @@ const coin = () => {
     .setDescription("/coin to toss a coin");
 
   async function execute(interaction) {
-    const result = DiceGenerator(2, 1);
+    const result = diceGenerator(2, 1);
 
     if (result[0] === 1) return await interaction.reply("Face !");
     if (result[0] === 2) return await interaction.reply("Pile !");

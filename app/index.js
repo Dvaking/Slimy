@@ -5,12 +5,16 @@ import {
   Collection,
   MessageFlags,
 } from "discord.js";
-import { DeployCommand } from "./deployCommands.js";
+
+import { deployCommand } from "./deployCommands.js";
 import { loadCommands, getDirname } from "./utils/commandLoader.js";
+import { initTables } from "#database";
 
 import "dotenv/config";
 
-DeployCommand();
+initTables();
+
+deployCommand();
 
 const bot = new Client({ intents: [GatewayIntentBits.Guilds] });
 
