@@ -14,6 +14,6 @@ const ping = () => {
     data,
     execute,
   };
-}
+};
 
 export default ping();
