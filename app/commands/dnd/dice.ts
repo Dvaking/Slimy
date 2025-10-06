@@ -1,7 +1,8 @@
-import { SlashCommandBuilder } from "discord.js";
-import { diceGenerator } from "#components";
+import { SlashCommandBuilder, ChatInputCommandInteraction } from "discord.js";
+import { diceGenerator } from "@/components";
+import { SlashCommand } from "@/types";
 
-const dice = () => {
+export function dice(): SlashCommand {
   const data = new SlashCommandBuilder()
     .setName("dice")
     .setDescription("/dice nbr of faces [nbr of dice]")
@@ -18,39 +19,39 @@ const dice = () => {
         .setRequired(true)
     );
 
-  async function execute(interaction) {
-    const nbrOfFaces = interaction.options.getInteger("nbr_of_faces");
+  async function execute(
+    interaction: ChatInputCommandInteraction
+  ): Promise<void> {
+    const nbrOfFaces = interaction.options.getInteger("nbr_of_faces", true);
     const nbrOfDice = interaction.options.getInteger("nbr_of_dice") || 1;
 
     if (nbrOfDice > 100) {
-      return interaction.reply("Man you abuse it's 100 dices max !! :(");
+      await interaction.reply("Man you abuse it's 100 dices max !! :(");
+      return;
     }
     if (nbrOfFaces > 999) {
-      return interaction.reply("Man you abuse it's 999 faces max !! :(");
+      await interaction.reply("Man you abuse it's 999 faces max !! :(");
+      return;
     }
     if (nbrOfFaces < 1 || nbrOfDice < 1) {
-      return interaction.reply("I can't roll this type of dices !! :(");
+      await interaction.reply("I can't roll this type of dices !! :(");
+      return;
     }
 
     const result = diceGenerator(nbrOfFaces, nbrOfDice);
 
-    let reply;
-    if (result.length === 1) {
-      reply = trolling(result);
-    } else {
-      reply = `Les résultats des dés sont ${result.join(", ")} !`;
-    }
+    const reply =
+      result.length === 1
+        ? trolling(result)
+        : `Les résultats des dés sont ${result.join(", ")} !`;
 
     await interaction.reply(reply);
   }
 
-  return {
-    data,
-    execute,
-  };
-};
+  return { data: data as SlashCommandBuilder, execute };
+}
 
-function trolling(result) {
+function trolling(result: number[]): string {
   const rdm = diceGenerator(2, 1)[0]; // juste la valeur au lieu du tableau
   switch (result[0]) {
     case 1:

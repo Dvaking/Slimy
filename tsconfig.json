@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "outDir": "./dist",
+    "rootDir": "./app",
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "paths": {
+      "@/database": ["./app/database/index.ts"],
+      "@/types": ["./app/types/index.ts"],
+      "@/utils": ["./app/utils/index.ts"],
+      "@/components": ["./app/components/index.ts"],
+      "@/asset/*": ["./asset/*"]
+    }
+  },
+  "include": ["app/**/*"]
+}

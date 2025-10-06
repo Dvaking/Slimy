@@ -6,20 +6,26 @@ import {
   MessageFlags,
 } from "discord.js";
 
+import { SlashCommand } from "@/types";
+import { loadCommands, getDirname } from "@/utils";
+
 import { deployCommand } from "./deployCommands.js";
-import { loadCommands, getDirname } from "./utils/commandLoader.js";
-import { initTables } from "#database";
+
 
 import "dotenv/config";
-
-initTables();
 
 deployCommand();
 
 const bot = new Client({ intents: [GatewayIntentBits.Guilds] });
 
+declare module "discord.js" {
+  interface Client {
+    commands: Collection<string, SlashCommand>;
+  }
+}
+
 bot.once(Events.ClientReady, (readyClient) => {
-  console.log(`Ready! Logged in as ${readyClient.user.tag}`);
+  console.log(`✅ Ready! Logged in as ${readyClient.user.tag}`);
 });
 
 bot.commands = new Collection();
@@ -27,7 +33,7 @@ bot.commands = new Collection();
 const __dirname = getDirname(import.meta.url);
 
 // Charge toutes les commandes en utilisant l'utilitaire centralisé
-const loadedCommands = await loadCommands(__dirname);
+const loadedCommands: SlashCommand[] = await loadCommands(__dirname);
 
 // Ajoute chaque commande à la collection du bot
 for (const command of loadedCommands) {
@@ -36,11 +42,15 @@ for (const command of loadedCommands) {
 
 bot.on(Events.InteractionCreate, async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
+
   const command = interaction.client.commands.get(interaction.commandName);
   if (!command) {
-    console.error(`No command matching ${interaction.commandName} was found.`);
+    console.error(
+      `❌ No command matching ${interaction.commandName} was found.`
+    );
     return;
   }
+
   try {
     await command.execute(interaction);
   } catch (error) {
