@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc && tsc-alias",
     "start": "node dist/index.js",
-    "dev": "ts-node -r tsconfig-paths/register app/index.ts"
+    "dev": "nodemon --exec tsx app/index.ts"
   },
   "repository": {
     "type": "git",
@@ -30,6 +30,7 @@
     "discord.js": "^14.22.1",
     "dotenv": "^17.2.3",
     "pg": "^8.16.3",
+    "tsx": "^4.20.6",
     "uuid": "^13.0.0"
   },
   "devDependencies": {
