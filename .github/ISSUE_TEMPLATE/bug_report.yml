@@ -50,7 +50,7 @@ body:
     id: terms
     attributes:
       label: Conditions
-      description: En soumettant ce bug, tu confirmes :
+      description: En soumettant ce bug, tu confirmes
       options:
         - label: J’ai cherché si le bug n’existait pas déjà
           required: true
