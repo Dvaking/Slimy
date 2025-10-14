@@ -1,81 +1,73 @@
-name: 🧩 User Story
-description: Créer une nouvelle User Story
-title: "ISSUE NAME"
-labels: []
-
+name: "📌 User Story"
+description: "Template standard pour la rédaction d'une User Story"
+title: "[User Story] "
+labels: ["user-story"]
 body:
   - type: markdown
     attributes:
       value: |
-        '## 📌 User Story'
+        ## 📌 User Story
 
   - type: textarea
     id: description
     attributes:
-      label: '📖 Description'
-      description: 'Brève explication du besoin utilisateur ou de la fonctionnalité.'
-      placeholder: 'Exemple : En tant que [utilisateur], je veux [objectif], afin de [valeur ajoutée].'
+      label: "📖 Description"
+      description: "Brève explication de la fonctionnalité ou du besoin utilisateur."
+      placeholder: "Ex: En tant qu’utilisateur, je veux pouvoir me connecter pour accéder à mon espace personnel."
     validations:
       required: true
 
   - type: textarea
     id: goal
     attributes:
-      label: '🎯 Goal'
-      description: 'Décris l’impact ou la valeur ajoutée de cette User Story.'
-      placeholder: 'Exemple : Améliorer la navigation, réduire les erreurs, simplifier l’expérience utilisateur…'
+      label: "🎯 Goal"
+      description: "Quel est l’impact ou la valeur ajoutée de cette User Story ?"
+      placeholder: "Ex: Permettre aux utilisateurs de gérer leurs informations personnelles."
     validations:
-      required: true
+      required: false
 
   - type: textarea
     id: personas
     attributes:
-      label: '👥 Personas'
-      description: 'Qui sont les utilisateurs concernés ?'
-      placeholder: "Exemple: Administrateur, utilisateur final, développeur, etc."
+      label: "👥 Personas"
+      description: "Quels utilisateurs sont concernés ?"
+      placeholder: "Ex: Administrateurs, utilisateurs enregistrés, visiteurs, etc."
     validations:
       required: false
 
   - type: markdown
     attributes:
       value: |
-        '---
-        ### ✅ Definition of Ready (DoR)'
+        ---
+
+        ### ✅ Definition of Ready (DoR)
 
   - type: checkboxes
-    id: definition_of_ready
+    id: dor
     attributes:
-      label: DoR
-      description: 'Coche les éléments remplis avant le démarrage.'
+      label: "Definition of Ready"
       options:
-        - label: N/A
+        - label: "N/A"
 
   - type: markdown
     attributes:
       value: |
         ---
+
         ### ✅ Definition of Done (DoD)
 
   - type: checkboxes
-    id: definition_of_done
+    id: dod
     attributes:
-      label: DoD
-      description: Conditions à remplir pour considérer la User Story comme terminée.
+      label: "Definition of Done"
       options:
-        - label: (à compléter)
-          required: true
+        - label: "Required"
 
   - type: markdown
     attributes:
       value: |
         ---
-        ### 🔗 Related Links
 
-  - type: textarea
-    id: related_links
-    attributes:
-      label: 🔗 Liens associés
-      description: 'Ajoute ici les liens vers d’autres ressources (issues, documentation, etc.)'
-      placeholder: |
+        ### 🔗 Related Links
         - [GitHub Issue](#)
         - [Documentation](#)
