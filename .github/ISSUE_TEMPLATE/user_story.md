@@ -1,0 +1,81 @@
+name: 🧩 User Story
+description: Créer une nouvelle User Story
+title: ""
+labels: ["user story", "enhancement"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 📌 User Story
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 📖 Description
+      description: Brève explication du besoin utilisateur ou de la fonctionnalité.
+      placeholder: Exemple : En tant que [utilisateur], je veux [objectif], afin de [valeur ajoutée].
+    validations:
+      required: true
+
+  - type: textarea
+    id: goal
+    attributes:
+      label: 🎯 Goal
+      description: Décris l’impact ou la valeur ajoutée de cette User Story.
+      placeholder: Exemple : Améliorer la navigation, réduire les erreurs, simplifier l’expérience utilisateur…
+    validations:
+      required: true
+
+  - type: textarea
+    id: personas
+    attributes:
+      label: 👥 Personas
+      description: Qui sont les utilisateurs concernés ?
+      placeholder: Exemple : Administrateur, utilisateur final, développeur, etc.
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ### ✅ Definition of Ready (DoR)
+
+  - type: checkboxes
+    id: definition_of_ready
+    attributes:
+      label: DoR
+      description: Coche les éléments remplis avant le démarrage.
+      options:
+        - label: N/A
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ### ✅ Definition of Done (DoD)
+
+  - type: checkboxes
+    id: definition_of_done
+    attributes:
+      label: DoD
+      description: Conditions à remplir pour considérer la User Story comme terminée.
+      options:
+        - label: (à compléter)
+          required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ### 🔗 Related Links
+
+  - type: textarea
+    id: related_links
+    attributes:
+      label: 🔗 Liens associés
+      description: Ajoute ici les liens vers d’autres ressources (issues, documentation, etc.)
+      placeholder: |
+        - [GitHub Issue](#)
+        - [Documentation](#)
