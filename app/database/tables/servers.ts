@@ -44,6 +44,6 @@ export async function getServer(serverId: string): Promise<Server | undefined> {
  * @returns Tableau des server_id
  */
 export async function getAllServers(): Promise<string[]> {
-  const res = await query("SELECT server_id FROM servers");
-  return res.rows.map((row) => row.server_id);
+  const res = await query("SELECT server_name, server_id FROM servers");
+  return res.rows.map((row) => row.server_name + " : " + row.server_id);
 }

@@ -13,9 +13,10 @@ services:
       - "5433:5432"
 
   bot:
-    build: .
+    image: node:20.10.0-alpine
     container_name: slimy-bot
     restart: unless-stopped
+    working_dir: /app
     env_file:
       - .env
     environment:
@@ -24,6 +25,7 @@ services:
       - database
     volumes:
       - ./:/app
+    command: sh -c "npm install && npm run build && npm run start"
 
 volumes:
   slimy_data:

@@ -1,7 +1,8 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction } from "discord.js";
 import { SlashCommand } from "@/types";
+import { addServer } from "@/database";
 
-export function addServer(): SlashCommand {
+export function addServerCommand(): SlashCommand {
   const data = new SlashCommandBuilder()
     .setName("add_server")
     .setDescription(
@@ -23,19 +24,29 @@ export function addServer(): SlashCommand {
   async function execute(
     interaction: ChatInputCommandInteraction
   ): Promise<void> {
-    const serverId = interaction.options.getString("guild_ID");
+    const serverId = interaction.options.getString("guild_id");
     const serverName = interaction.options.getString("server_name");
 
+    console.log(serverId, serverName);
+
+    if (serverId == null || serverName == null) {
+      await interaction.reply("Please provide both guild_id and server_name.");
+      return;
+    }
     if (interaction.user.id != "418692593816436746") {
       await interaction.reply("Ur not Dvaking :eyes:");
       return;
     }
 
-    
-    await interaction.reply("Hey Dvaking!");
+    addServer(serverId!, serverName!).catch((err) => {
+      console.error("Error adding server:", err);
+      interaction.reply("There was an error while adding the server.");
+    });
+
+    await interaction.reply("Hey Dvaking! Server added! :)");
   }
 
   return { data: data as SlashCommandBuilder, execute };
 }
 
-export default addServer();
+export default addServerCommand();
