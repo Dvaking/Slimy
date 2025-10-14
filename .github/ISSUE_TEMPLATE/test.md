@@ -1,5 +1,5 @@
 ---
-name: "📌 User Story"
+name: "📌 Ur Story"
 about: "Template standard pour la rédaction d'une User Story"
 title: "[User Story] "
 labels: ["user-story"]
