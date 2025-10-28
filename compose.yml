@@ -8,24 +8,29 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
     volumes:
-      - slimy_data:/var/lib/postgresql/data
+      - slimy_data:/var/lib/postgresql
     ports:
       - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
 
   bot:
-    image: node:20.10.0-alpine
+    build: .
     container_name: slimy-bot
     restart: unless-stopped
-    working_dir: /app
     env_file:
       - .env
     environment:
-      DATABASE_URL: ${POSTGRES_URL}
+      POSTGRES_URL: ${POSTGRES_URL_DOCKER}
     depends_on:
-      - database
+      database:
+        condition: service_healthy
     volumes:
       - ./:/app
-    command: sh -c "npm install && npm run build && npm run start"
+    command: ["sh", "-c", "chmod +x setup.sh && ./setup.sh && npm run start"]
 
 volumes:
   slimy_data:

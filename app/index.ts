@@ -11,8 +11,9 @@ import { loadCommands, getDirname } from "@/utils";
 
 import { deployCommand } from "./deployCommands.js";
 
-
 import "dotenv/config";
+import { handleModalSubmit, modalSocialMedia } from "@/components";
+import { asyncFunction } from "@/services";
 
 deployCommand();
 
@@ -26,6 +27,15 @@ declare module "discord.js" {
 
 bot.once(Events.ClientReady, (readyClient) => {
   console.log(`✅ Ready! Logged in as ${readyClient.user.tag}`);
+
+  setInterval(async () => {
+    try {
+      console.log("🔄 Tâche périodique lancée");
+      await asyncFunction(readyClient);
+    } catch (err) {
+      console.error("❌ Erreur dans la tâche périodique :", err);
+    }
+  }, 5 * 60 * 1000);
 });
 
 bot.commands = new Collection();
@@ -40,28 +50,40 @@ for (const command of loadedCommands) {
   bot.commands.set(command.data.name, command);
 }
 
-bot.on(Events.InteractionCreate, async (interaction) => {
-  if (!interaction.isChatInputCommand()) return;
+bot.on(Events.InteractionCreate, async (int) => {
+  if (int.isModalSubmit()) {
+    if (int.customId.startsWith("modal_watcher_")) {
+      const parts = int.customId.split("_");
+      await handleModalSubmit(int, parts[2], parts[3]);
+    }
+    return;
+  }
+  if (int.isStringSelectMenu()) {
+    if (int.customId.startsWith("select_social_")) {
+      const parts = int.customId.split("_");
+      await modalSocialMedia(int, int.values[0], parts[2]);
+    }
+  }
 
-  const command = interaction.client.commands.get(interaction.commandName);
+  if (!int.isChatInputCommand()) return;
+
+  const command = int.client.commands.get(int.commandName);
   if (!command) {
-    console.error(
-      `❌ No command matching ${interaction.commandName} was found.`
-    );
+    console.error(`❌ No command matching ${int.commandName} was found.`);
     return;
   }
 
   try {
-    await command.execute(interaction);
+    await command.execute(int);
   } catch (error) {
     console.error(error);
-    if (interaction.replied || interaction.deferred) {
-      await interaction.followUp({
+    if (int.replied || int.deferred) {
+      await int.followUp({
         content: "There was an error while executing this command!",
         flags: MessageFlags.Ephemeral,
       });
     } else {
-      await interaction.reply({
+      await int.reply({
         content: "There was an error while executing this command!",
         flags: MessageFlags.Ephemeral,
       });

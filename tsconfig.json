@@ -14,6 +14,7 @@
       "@/database": ["./app/database/index.ts"],
       "@/types": ["./app/types/index.ts"],
       "@/utils": ["./app/utils/index.ts"],
+      "@/services": ["./app/services/index.ts"],
       "@/components": ["./app/components/index.ts"],
       "@/asset/*": ["./asset/*"]
     }

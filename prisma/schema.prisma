@@ -1,0 +1,44 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("POSTGRES_URL")
+}
+
+enum ServiceName {
+    TikTok
+    Youtube
+    Twitch
+    Instagram
+}
+
+// ─────────────────────────────────────────────
+// 🧩 Table: Server
+// ─────────────────────────────────────────────
+model Server {
+    id         String   @id
+    name       String
+    created_at DateTime @default(now())
+
+    // Relation inverse
+    watchers SocialMediaWatcher[]
+}
+
+// ─────────────────────────────────────────────
+// 🧩 Table: SocialMediaWatcher
+// ─────────────────────────────────────────────
+model SocialMediaWatcher {
+    uuid          String      @id @default(uuid())
+    services_name ServiceName
+    username      String
+    message       String?
+    channel_id    String
+    last_video    String?
+    created_at    DateTime    @default(now())
+
+    // Relation vers Server
+    server_id String
+    server    Server @relation(fields: [server_id], references: [id])
+}
